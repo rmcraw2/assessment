@@ -17,8 +17,11 @@ type ExchangeRates struct {
 	Rates    map[string]string `json:"rates"`
 }
 
-func GetExchangeRates(baseCurrency string) (*ExchangeRates, error) {
-	url := fmt.Sprintf("https://api.coinbase.com/v2/exchange-rates?currency=%v", baseCurrency)
+type CoinbaseClient struct {
+}
+
+func (cb CoinbaseClient) GetExchangeRates() (*ExchangeRates, error) {
+	url := fmt.Sprintf("https://api.coinbase.com/v2/exchange-rates?currency=USD")
 
 	resp, err := http.Get(url)
 	if err != nil {
