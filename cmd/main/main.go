@@ -7,10 +7,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/rmcraw2/assessment/internal/client/coinbase"
+	"github.com/rmcraw2/assessment/internal/coinbase"
 )
 
-type coinbaseInterface interface {
+type CoinbaseInterface interface {
 	GetExchangeRates() (*coinbase.ExchangeRates, error)
 }
 
@@ -27,7 +27,7 @@ func main() {
 	fmt.Println(*line2)
 }
 
-func MainBody(cbClient coinbaseInterface) (*string, *string, error) {
+func MainBody(cbClient CoinbaseInterface) (*string, *string, error) {
 	if len(os.Args) <= 3 {
 		return nil, nil, errors.New("not enough inputs")
 	}
