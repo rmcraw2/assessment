@@ -15,7 +15,7 @@ type CoinbaseInterface interface {
 }
 
 func main() {
-	cbClient := coinbase.CoinbaseClient{}
+	cbClient := coinbase.NewCoinbaseClient()
 
 	line1, line2, err := MainBody(cbClient)
 	if err != nil {

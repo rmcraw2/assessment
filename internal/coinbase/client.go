@@ -18,20 +18,29 @@ type ExchangeRates struct {
 }
 
 type CoinbaseClient struct {
+	URL string
+}
+
+func NewCoinbaseClient() *CoinbaseClient {
+	return &CoinbaseClient{
+		URL: "https://api.coinbase.com",
+	}
 }
 
 func (cb CoinbaseClient) GetExchangeRates() (*ExchangeRates, error) {
-	url := fmt.Sprintf("https://api.coinbase.com/v2/exchange-rates?currency=USD")
+	url := fmt.Sprintf("%v/v2/exchange-rates?currency=USD", cb.URL)
 
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
 	}
 
-	exchangeRatesData := &ExchangeRatesResponse{}
-	if err = json.NewDecoder(resp.Body).Decode(exchangeRatesData); err != nil {
+	defer resp.Body.Close()
+
+	ExchangeRatesResponse := &ExchangeRatesResponse{}
+	if err = json.NewDecoder(resp.Body).Decode(ExchangeRatesResponse); err != nil {
 		return nil, err
 	}
 
-	return &exchangeRatesData.Data, nil
+	return &ExchangeRatesResponse.Data, nil
 }

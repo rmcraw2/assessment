@@ -18,7 +18,6 @@ func TestMainSuite(t *testing.T) {
 }
 
 func (suite *mainSuite) TestMainBody() {
-
 	testCases := map[string]struct {
 		testInputs  func() []string
 		cbClient    func() main.CoinbaseInterface
@@ -156,7 +155,6 @@ func (suite *mainSuite) TestMainBody() {
 			tc.testAsserts(line1, line2, err)
 		})
 	}
-
 }
 
 type mockCbClient struct {
